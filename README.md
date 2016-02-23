@@ -30,6 +30,6 @@
 
    * kp calls the kill_app_by_port function in utils.sh pass it port # and it will the process running on that port ex: ```bash kp 3000 ```
 
-   * sc call the starphleet_connect function in utils.sh updates the list of hosts using https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt and then provides a prompt for you choose which host to connect to.
+   * sc call the starphleet_connect function in utils.sh updates the list of hosts using https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt and then provides a prompt for you to choose which host to connect to.
 
      * When calling starphleet_connect we also update the list of available regions from the list above so it should stay in synch.
