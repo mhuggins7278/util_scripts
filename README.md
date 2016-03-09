@@ -5,7 +5,8 @@
   1. clone the repo
   2. cd into the cloned dir
   3. run the install.sh script
-  4. source ~/.bash_profile
+  4. ADD GITHUB_PW & GITHUB_USER env vars
+  5. source ~/.bash_profile
 
 #### The Install Script does a couple of things
 

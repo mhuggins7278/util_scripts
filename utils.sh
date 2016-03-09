@@ -19,7 +19,7 @@ starphleet_connect() {
 
 update_starphleet_hosts() {
   line=$(get_sp_hosts_line);
-  hosts=$(curl https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt | cut -d'.' -f1)
+  hosts=$(curl --user "${GITHUB_USER}:${GITHUB_PW}" https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt | cut -d'.' -f1)
   replacement=`echo Host  ${hosts// / }`
   sed -i.old "${line}s/^.*$/${replacement}/" ~/.ssh/config
 
