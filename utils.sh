@@ -34,3 +34,19 @@ get_sp_hosts_line(){
 get_sp_hosts_ssh_config(){
   echo $(sed -n "$(get_sp_hosts_line)p" ~/.ssh/config | cut -d' ' -f2-);
 }
+
+#sfd
+#
+#  loop through each directory in the starphleet_dev dir and check for a .git dir
+#  and if it is a git repo, open these as unique roots in a single atom window
+sfd() {
+    cd ${HOME}/starphleet_dev
+    LIST=""
+    for dir in $(find ${HOME}/starphleet_dev -type d -maxdepth 2); do
+      [ -d "$dir/.git" ] && LIST="${LIST} ${dir}"
+    done
+    echo Opening ${LIST}
+    # Expand the ${LIST} before running the command with eval
+    eval atom ${LIST}
+}
+
