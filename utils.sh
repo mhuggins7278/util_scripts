@@ -49,4 +49,13 @@ sfd() {
     # Expand the ${LIST} before running the command with eval
     eval atom ${LIST}
 }
-
+#gbd
+#
+# deletes a branch from both the local repo and the specified remote
+gbd() {
+if [[ $1 == 0 ]] || [[ $2 == 0 ]] ; then
+  echo 'You must specify the branch and the remote you wish to delete it from'
+  return 0
+fi
+  cd `pwd` && git branch -D $2 && git push $1 :$2
+}
