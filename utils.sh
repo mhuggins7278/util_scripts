@@ -61,7 +61,7 @@ fi
 }
 
 # prunes the branches deleted on the remote and then cleans up local branches associated with those pruned branches
-gcr() {
+gpl() {
 if [ -d .git ]; then
   read -p "This will delete all local branches where the remote has been removed are you sure you want to continue (y/n)" CONT
   if [ "$CONT" == "y" ]; then
