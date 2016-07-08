@@ -59,3 +59,15 @@ if [[ $1 == 0 ]] || [[ $2 == 0 ]] ; then
 fi
   cd `pwd` && git branch -D $2 && git push $1 :$2
 }
+
+# prunes the branches deleted on the remote and then cleans up local branches associated with those pruned branches
+gcr() {
+if [ -d .git ]; then
+  read -p "This will delete all local branches where the remote has been removed are you sure you want to continue (y/n)" CONT
+  if [ "$CONT" == "y" ]; then
+  git fetch -p && for branch in `git branch -vv | grep ': gone]' | gawk '{print $1}'`; do git branch -D $branch; done
+  fi;
+else
+  echo 'This is not a git repository'
+fi;
+}
