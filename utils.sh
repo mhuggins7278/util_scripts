@@ -66,6 +66,7 @@ if [ -d .git ]; then
   read -p "This will delete all local branches where the remote has been removed are you sure you want to continue (y/n)" CONT
   if [ "$CONT" == "y" ]; then
   git fetch -p && for branch in `git branch -vv | grep ': gone]' | gawk '{print $1}'`; do git branch -D $branch; done
+  git remote | xargs git remote prune
   fi;
 else
   echo 'This is not a git repository'
