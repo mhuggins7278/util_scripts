@@ -18,8 +18,11 @@ starphleet_connect() {
 }
 
 update_starphleet_hosts() {
+  echo "IN update hosts"
+  echo $GITHUB_USER $GITHUB_PW
   line=$(get_sp_hosts_line);
   hosts=$(curl --user "${GITHUB_USER}:${GITHUB_PW}" https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt | cut -d'.' -f1)
+  hosts="$hosts markhuggins"
   replacement=`echo Host  ${hosts// / }`
   sed -i.old "${line}s/^.*$/${replacement}/" ~/.ssh/config
 
@@ -38,7 +41,7 @@ get_sp_hosts_ssh_config(){
 #sfd
 #
 #  loop through each directory in the starphleet_dev dir and check for a .git dir
-#  and if it is a git repo, open these as unique roots in a single atom window
+#  and if it is a git repo, open these as unique roots in a single vscode window
 sfd() {
     cd ${HOME}/starphleet_dev
     LIST=""
@@ -47,7 +50,7 @@ sfd() {
     done
     echo Opening ${LIST}
     # Expand the ${LIST} before running the command with eval
-    eval atom ${LIST}
+    eval code ${LIST}
 }
 #gbd
 #
