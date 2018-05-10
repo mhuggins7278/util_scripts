@@ -75,3 +75,20 @@ else
   echo 'This is not a git repository'
 fi;
 }
+nvmit() {
+    if [ -f './.nvmrc' ]; then
+        nvm use
+    else
+        packageJson='./package.json'
+        if [ -f $packageJson ]; then
+            result=$(jq --raw-output '.engines.node' $packageJson)
+            if [ ! -z "$result" ]; then
+                nvm install $result
+            else
+                echo "no engines.node section found in package.json"
+            fi
+        else
+            echo "no package.json found"
+        fi
+    fi
+}
