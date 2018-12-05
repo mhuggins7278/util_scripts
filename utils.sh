@@ -77,7 +77,7 @@ fi;
 }
 nvmit() {
     if [ -f './.nvmrc' ]; then
-        nvm use
+        nvm install
     else
         packageJson='./package.json'
         if [ -f $packageJson ]; then
