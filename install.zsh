@@ -1,5 +1,5 @@
 #!/bin/zsh
-dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+dir="$( cd "$( dirname "${(%):-%x}" )" && pwd )"
 conf='#starphleet_hosts
 Host virginia ireland singapore jobs staging email elastic notsplunk moserca
 HostName %h.glgresearch.com

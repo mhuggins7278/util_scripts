@@ -1,3 +1,4 @@
+#! /bin/zsh
 
 kill_app_by_port() {
 if [[ $1 -eq 0 ]] ; then
@@ -28,20 +29,18 @@ update_starphleet_hosts() {
 
 }
 
-get_sp_hosts_line(){
+get_sp_hosts_line() {
   line=$(grep -no starphleet_hosts ~/.ssh/config | cut -d':' -f1);
   line=$((line+1));
   echo ${line}
 }
 
-get_sp_hosts_ssh_config(){
+get_sp_hosts_ssh_config() {
   echo $(sed -n "$(get_sp_hosts_line)p" ~/.ssh/config | cut -d' ' -f2-);
 }
 
-#gbd
-#
 # deletes a branch from both the local repo and the specified remote
-function gbd(){
+git_delete_branch() {
 if [[ $1 == 0 ]] || [[ $2 == 0 ]] ; then
   echo 'You must specify the branch and the remote you wish to delete it from'
   return 0
@@ -51,9 +50,9 @@ fi;
 }
 
 # prunes the branches deleted on the remote and then cleans up local branches associated with those pruned branches
-gpl() {
+git_prune_local() {
 if [ -d .git ]; then
-  read -p "This will delete all local branches where the remote has been removed are you sure you want to continue (y/n)" CONT
+  vared -p "This will delete all local branches where the remote has been removed are you sure you want to continue (y/n)" -c CONT
   if [ "$CONT" == "y" ]; then
   git fetch -p && for branch in `git branch -vv | grep ': gone]' | gawk '{print $1}'`; do git branch -D $branch; done
   git remote | xargs git remote prune
