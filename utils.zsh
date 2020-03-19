@@ -21,9 +21,9 @@ update_starphleet_hosts() {
   echo "IN update hosts"
   echo $GITHUB_USER $GITHUB_PW
   line=$(get_sp_hosts_line);
-  hosts=$(curl --user "${GITHUB_USER}:${GITHUB_PW}" https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt | cut -d'.' -f1)
-  hosts="$hosts markhuggins"
-  replacement=`echo Host  ${hosts// / }`
+  hosts=$(curl --user "${GITHUB_USER}:${GITHUB_PW}" https://raw.githubusercontent.com/glg/starphleet-enhance/master/regions.txt | cut -d'.' -f1 | tr '\n' ' ')
+  replacement=`echo Host  ${hosts}`
+  echo ${replacement}
   sed -i.old "${line}s/^.*$/${replacement}/" ~/.ssh/config
 
 }
@@ -38,29 +38,16 @@ get_sp_hosts_ssh_config(){
   echo $(sed -n "$(get_sp_hosts_line)p" ~/.ssh/config | cut -d' ' -f2-);
 }
 
-#sfd
-#
-#  loop through each directory in the starphleet_dev dir and check for a .git dir
-#  and if it is a git repo, open these as unique roots in a single vscode window
-sfd() {
-    cd ${HOME}/starphleet_dev
-    LIST=""
-    for dir in $(find ${HOME}/starphleet_dev -type d -maxdepth 2); do
-      [ -d "$dir/.git" ] && LIST="${LIST} ${dir}"
-    done
-    echo Opening ${LIST}
-    # Expand the ${LIST} before running the command with eval
-    eval code ${LIST}
-}
 #gbd
 #
 # deletes a branch from both the local repo and the specified remote
-gbd() {
+function gbd(){
 if [[ $1 == 0 ]] || [[ $2 == 0 ]] ; then
   echo 'You must specify the branch and the remote you wish to delete it from'
   return 0
-fi
+else
   cd `pwd` && git branch -D $2 && git push $1 :$2
+fi;
 }
 
 # prunes the branches deleted on the remote and then cleans up local branches associated with those pruned branches
@@ -75,6 +62,7 @@ else
   echo 'This is not a git repository'
 fi;
 }
+
 nvmit() {
     if [ -f './.nvmrc' ]; then
         nvm install

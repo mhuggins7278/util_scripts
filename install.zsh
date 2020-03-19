@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 conf='#starphleet_hosts
 Host virginia ireland singapore jobs staging email elastic notsplunk moserca
@@ -18,4 +18,4 @@ then
 fi
 
 
-grep -q -F ${dir} ~/.bash_profile || printf "for f in \`find ${dir}/ -d 1 -type file ! -name install.sh -and ! -name README.md\`; do source \$f; done" >> ~/.bash_profile
+grep -q -F ${dir} ~/.zshrc || printf "for f in \`find ${dir}/ -d 1 -type file ! -name install.sh -and ! -name README.md\`; do source \$f; done" >> ~/.zshrc
