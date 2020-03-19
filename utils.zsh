@@ -42,7 +42,7 @@ get_sp_hosts_ssh_config() {
 # deletes a branch from both the local repo and the specified remote
 git_delete_branch() {
 if [[ $1 == 0 ]] || [[ $2 == 0 ]] ; then
-  echo 'You must specify the branch and the remote you wish to delete it from'
+  echo 'You must specify the branch and the remote you wish to delete it from ie origin branch_name'
   return 0
 else
   cd `pwd` && git branch -D $2 && git push $1 :$2
